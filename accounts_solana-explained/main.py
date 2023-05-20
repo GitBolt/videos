@@ -156,14 +156,12 @@ class Accounts(mn.Scene):
         self.play(mn.Create(table_group3), run_time=3)
         self.wait(1)
 
-        # Define the target position for the table
         target_position = table_group3.get_center() + 3 * mn.LEFT
 
-        # Move the table to the left
         self.play(table_group3.animate.move_to(target_position))
 
         codeLinkAccount = mn.Text(
-            "https://github.com/solana-labs/solana/blob/master/sdk/src/account.rs#L29", color=mn.BLUE_C, font_size=15)
+            "https://github.com/solana-labs/solana/blob/master/sdk/src/account.rs#L29", color=mn.BLUE_C, font_size=25)
         accountCode = mn.Code(
             file_name="codeblocks/account.rs",
             background="rectangle",
@@ -176,30 +174,31 @@ class Accounts(mn.Scene):
             style="dracula",
         ).scale(1)
         accountCode.next_to(table_group3, mn.RIGHT, buff=0.7)
-        codeLinkAccount.next_to(accountCode, mn.DOWN, buff=1.7)
-        # Move the code block to its final position while the table is moving
+        codeLinkAccount.move_to([0, -3, 0])
+
         self.play(mn.Create(accountCode))
         self.add(codeLinkAccount)
         self.wait()
 
         self.play(mn.FadeOut(codeLinkAccount),
-                     mn.FadeOut(accountCode), run_time=1)
-        self.play(table_group3.animate.move_to(table_group3.get_center() + 3 * mn.RIGHT))
+                  mn.FadeOut(accountCode), run_time=1)
+        self.play(table_group3.animate.move_to(
+            table_group3.get_center() + 3 * mn.RIGHT))
+        self.wait()
 
         table_executable = table_group3.copy()
         table_executable[-1] = mn.Text("Executable Account", font_size=25,
                                        color=mn.WHITE).next_to(box3.get_top(), mn.UP, buff=0.1)
         table_data_ex = [["Field", "Data"],
                          ["lamports", "69420"],
-                         ["owner", "BPFLoa...1111"],
+                         ["owner", "BPFL...1111"],
                          ["executable", "true"],
-                         ["data", "byte_data.bin"],
+                         ["data", "bytedata.bin"],
                          ["rent_epoch", "1234"]
                          ]
 
         table_ex = mn.Table(table_data_ex, line_config={
             "stroke_width": 1, "color": mn.GRAY_C}, include_outer_lines=True)
-        table_ex.set
         table_ex.scale(0.5)
         table_ex.add_highlighted_cell((1, 1), color="#163A70")
         table_ex.add_highlighted_cell((1, 2), color="#163A70")
@@ -226,9 +225,27 @@ class Accounts(mn.Scene):
         table_nex.add_highlighted_cell((1, 2), color="#163A70")
 
         table_non_executable[0] = table_nex
-        table_non_executable.next_to(table_group3, mn.RIGHT, buff=-2)
+        table_non_executable.next_to(table_group3, mn.LEFT, buff=-2)
 
-        self.play(mn.Transform(table_group3, table_executable))
         self.play(mn.Transform(table_group3, mn.VGroup(
             table_executable, table_non_executable)))
-        self.wait(4)
+        self.wait(2)
+
+        rect_nex = mn.SurroundingRectangle(
+            table_nex.get_rows()[1], color=mn.BLUE_C, buff=0.1)
+        rect_ex = mn.SurroundingRectangle(
+            table_ex.get_rows()[1], color=mn.BLUE_C, buff=0.1)
+        self.play(mn.Write(table_nex.add(rect_nex)),
+                  mn.Write(table_ex.add(rect_ex)))
+        self.wait(5)
+
+        for i in range(1, 5):
+            new_rect_nex = mn.SurroundingRectangle(
+                table_nex.get_rows()[i+1], color=mn.BLUE_C, buff=0.1)
+            
+            new_rect_ex = mn.SurroundingRectangle(
+                table_ex.get_rows()[i+1], color=mn.BLUE_C, buff=0.1)
+            self.play(mn.ApplyMethod(rect_nex.move_to, new_rect_nex),
+                      mn.ApplyMethod(rect_ex.move_to, new_rect_ex),
+                      run_time=1)
+            self.wait(5)
