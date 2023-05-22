@@ -36,7 +36,7 @@ def AccountStructureCode(self: Scene):
     accountCode.next_to(account, RIGHT, buff=0.7)
     codeLinkAccount.move_to([0, -3, 0])
 
-    self.play(Create(accountCode))
+    self.play(Write(accountCode))
     self.add(codeLinkAccount)
     self.wait(2)
 

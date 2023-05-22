@@ -7,7 +7,7 @@ from scene3 import AccountStructureCode
 from scene4 import TwoAccountDesc
 from scene5 import RunSOLAccountsToEth
 from scene6 import ProgramAndDataAccount
-
+from scene7 import AccountCreation
 
 class Accounts(MovingCameraScene):
     def construct(self):
@@ -26,3 +26,6 @@ class Accounts(MovingCameraScene):
 
         eth_acc, eth_acc_t = RunSOLAccountsToEth(self)
         ProgramAndDataAccount(self, eth_acc)
+        self.wait()
+
+        AccountCreation(self)

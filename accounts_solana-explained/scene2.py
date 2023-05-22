@@ -32,7 +32,7 @@ def LearningScene(self: Scene):
     ).scale(1.3)
 
     code.next_to(account_table, RIGHT, buff=0.5)
-    self.play(Create(code), run_time=0.5)
+    self.play(Write(code), run_time=0.5)
     self.wait()
 
     [account_table2, _] = create_table(

@@ -17,6 +17,8 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
     )
     program_account.shift(UP)
 
+    owner = program_account_t.get_rows()[1]
+
     data_account, data_account_t = create_table([
         ["Field", "Data"],
         ["owner", "Program Account"],
@@ -69,3 +71,29 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
         self.play(FadeOut(dot), run_time=0.5 if i < 2 else 0.1)
 
     self.wait(2)
+
+    self.play(Uncreate(curve_arrow))
+
+    self.camera.frame.save_state()
+    self.play(
+        self.camera.frame.animate.set_width(program_account.get_width()*1.2),
+        self.camera.frame.animate.move_to(program_account).scale(0.5),
+        owner.animate.set_color(BLUE_C)
+    )
+    self.wait()
+
+    self.play(Restore(self.camera.frame), owner.animate.set_color(WHITE))
+    self.wait()
+
+    image = ImageMobject("assets/native_programs.png")
+    image.move_to(DOWN*6.2)  # Position the image at the center of the screen
+
+    # Animate the scrolling effect
+    self.play(
+        # Move the image to the top of the screen
+        image.animate.move_to(UP * 5),
+        run_time=5,
+    )
+
+    self.wait(1)
+
