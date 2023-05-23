@@ -28,7 +28,7 @@ def AccountCreation(self: Scene):
     pubKeyGroup.next_to(code, DOWN * 1.5 + LEFT * 1.5, buff=0.2)
 
     curve_arrow = Arrow(code.get_left(), pubKeyGroup.get_top(),
-                        path_arc=90 * DEGREES, color=BLUE_D, stroke_width=3)
+                        path_arc=90 * DEGREES, color=BLUE_D, stroke_width=3, max_tip_length_to_length_ratio=0.05)
 
     self.play(Write(pubKeyGroup), Create(curve_arrow))
 
@@ -44,7 +44,7 @@ def AccountCreation(self: Scene):
     privKeyGroup.next_to(code, DOWN * 1.5 + RIGHT * 1.5, buff=0.2)
 
     curve_arrow2 = Arrow(code.get_right(), privKeyGroup.get_top(),
-                         path_arc=-90 * DEGREES, color=BLUE_D, stroke_width=3)
+                         path_arc=-90 * DEGREES, color=BLUE_D, stroke_width=3, max_tip_length_to_length_ratio=0.05)
 
     self.play(Write(privKeyGroup), Create(curve_arrow2))
 
@@ -64,7 +64,7 @@ def AccountCreation(self: Scene):
     code2.move_to(DOWN*2)
 
     curve_arrow2 = Arrow(pubKeyGroup.get_right(), code2.get_top(),
-                         path_arc=-90 * DEGREES, color=BLUE_D, stroke_width=3)
+                         path_arc=-90 * DEGREES, color=BLUE_D, stroke_width=3, max_tip_length_to_length_ratio=0.05)
 
     self.play(Write(code2), Create(curve_arrow2))
     self.wait()

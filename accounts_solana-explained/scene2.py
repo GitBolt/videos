@@ -53,7 +53,7 @@ def LearningScene(self: Scene):
     end_point = account_table2.get_corner(UP + RIGHT)
 
     curve_arrow = Arrow(start_point, end_point,
-                        path_arc=-50 * DEGREES, color=WHITE, stroke_width=2)
+                        path_arc=-50 * DEGREES, color=WHITE, stroke_width=2, max_tip_length_to_length_ratio=0.05)
 
     self.play(Create(curve_arrow), run_time=1.6)
 

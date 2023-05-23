@@ -1,6 +1,7 @@
 from manim import *
 import random
 from create_table import create_table, create_table_progress
+from make_code import make_code
 
 from scene1 import IntroScene
 from scene2 import LearningScene
@@ -10,27 +11,30 @@ from scene5 import RunSOLAccountsToEth
 from scene6 import ProgramAndDataAccount
 from scene7 import AccountCreation
 from scene8 import RentIntro
+from scene9 import TokenAccounts
 
 
 class Accounts(MovingCameraScene):
     def construct(self):
         Text.set_default(font="Cantarell", font_size=50)
 
-        # IntroScene(self)
-        # LearningScene(self)
-        # account = AccountStructureCode(self)
-        # non_ex_account = TwoAccountDesc(self, account)
+        IntroScene(self)
+        LearningScene(self)
+        account = AccountStructureCode(self)
+        non_ex_account = TwoAccountDesc(self, account)
 
-        # self.play(Create(non_ex_account), run_time=0.8)
-        # self.wait(2)
+        self.play(Create(non_ex_account), run_time=0.8)
+        self.wait(2)
 
-        # # Add Non Ex Details First
-        # self.play(Uncreate(non_ex_account))
+        # Add Non Ex Details First
+        self.play(Uncreate(non_ex_account))
 
-        eth_acc, eth_acc_t = RunSOLAccountsToEth(self)
+        eth_acc, _ = RunSOLAccountsToEth(self)
         ProgramAndDataAccount(self, eth_acc)
         self.wait()
 
         AccountCreation(self)
         RentIntro(self)
         self.wait(2)
+
+        TokenAccounts(self)

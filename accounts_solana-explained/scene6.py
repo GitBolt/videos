@@ -52,7 +52,7 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
     self.wait()
 
     curve_arrow = Arrow(data_account.get_left(), program_account.get_top(),
-                        path_arc=90 * DEGREES, color=BLUE_D, stroke_width=3)
+                        path_arc=90 * DEGREES, color=BLUE_D, stroke_width=3, max_tip_length_to_length_ratio=0.05)
     self.play(Create(curve_arrow), run_time=1.6)
 
     rect_path = SurroundingRectangle(program_account_t)

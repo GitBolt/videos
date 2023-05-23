@@ -52,7 +52,7 @@ def RentIntro(self: Scene):
     data = rent_t.get_rows()[2][1]
 
     arrow = Arrow(start=DOWN, end=UP, stroke_width=8,
-                  color=PINK).next_to(data, RIGHT * 3)
+                  color=PINK, max_tip_length_to_length_ratio=0.05).next_to(data, RIGHT * 3)
 
     self.play(Write(arrow), Write(rent_value),
               data.animate.set_color(BLUE))
