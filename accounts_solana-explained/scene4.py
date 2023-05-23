@@ -49,16 +49,16 @@ def TwoAccountDesc(self: Scene, account):
               Write(ex_account_table.add(rect_ex)))
     self.wait(5)
 
-    # for i in range(1, 5):
-    #     new_rect_nex = SurroundingRectangle(
-    #         non_ex_account_table.get_rows()[i+1], color=BLUE_C, buff=0.1)
+    for i in range(1, 5):
+        new_rect_nex = SurroundingRectangle(
+            non_ex_account_table.get_rows()[i+1], color=BLUE_C, buff=0.1)
 
-    #     new_rect_ex = SurroundingRectangle(
-    #         ex_account_table.get_rows()[i+1], color=BLUE_C, buff=0.1)
-    #     self.play(ApplyMethod(rect_nex.move_to, new_rect_nex),
-    #               ApplyMethod(rect_ex.move_to, new_rect_ex),
-    #               run_time=1)
-    #     self.wait(5)
+        new_rect_ex = SurroundingRectangle(
+            ex_account_table.get_rows()[i+1], color=BLUE_C, buff=0.1)
+        self.play(ApplyMethod(rect_nex.move_to, new_rect_nex),
+                  ApplyMethod(rect_ex.move_to, new_rect_ex),
+                  run_time=1)
+        self.wait(5)
 
     self.play(Uncreate(rect_nex), Uncreate(rect_ex))
 
@@ -73,7 +73,7 @@ def TwoAccountDesc(self: Scene, account):
     self.wait(2)
 
     program_image = ImageMobject("assets/explorer_program.png").scale(1)
-    self.add(program_image)
+    self.play(FadeIn(program_image))
     self.wait()
 
     rectangle = Rectangle(
@@ -191,4 +191,5 @@ def TwoAccountDesc(self: Scene, account):
 
     self.play(Write(Text("Storage capacity reached", font_size=25,
               color=ORANGE).next_to(progress_bar, DOWN)), run_time=0.6)
-    self.wait(4)
+
+    self.play(*[FadeOut(i) for i in self.mobjects])

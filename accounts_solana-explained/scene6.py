@@ -33,7 +33,6 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
     )
     data = data_account_t.get_rows()[4][1]
 
-
     data_account.move_to(eth_acc.get_bottom() * 1.2)
 
     self.wait(2)
@@ -42,10 +41,10 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
     self.play(Transform(eth_acc, VGroup(program_account, data_account)))
 
     self.wait(3)
-    
+
     self.play(program_account.animate.move_to(LEFT * 2).scale(1.2), data_account.animate.next_to(
         program_account, RIGHT, buff=0.1).scale(1.2), FadeOut(eth_acc))
-    
+
     self.play(Transform(data, Text("count: 1", font_size=20,
                                    color=GREEN).move_to(data.get_center())))
 
@@ -91,14 +90,13 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
     self.wait()
 
     image = ImageMobject("assets/native_programs.png")
-    image.move_to(DOWN*6.2)  # Position the image at the center of the screen
+    image.move_to(DOWN*6.2)
+    self.play(FadeIn(image))
 
-    # Animate the scrolling effect
     self.play(
-        # Move the image to the top of the screen
         image.animate.move_to(UP * 5),
         run_time=5,
     )
     self.wait(1)
+    self.play(FadeOut(image))
     self.remove(*[obj for obj in self.mobjects])
-

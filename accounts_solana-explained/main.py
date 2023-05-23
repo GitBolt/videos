@@ -1,8 +1,4 @@
 from manim import *
-import random
-from create_table import create_table, create_table_progress
-from make_code import make_code
-
 from scene1 import IntroScene
 from scene2 import LearningScene
 from scene3 import AccountStructureCode

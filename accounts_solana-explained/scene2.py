@@ -49,11 +49,9 @@ def LearningScene(self: Scene):
     account_table2.next_to(code, RIGHT, buff=0.5)
     self.play(Create(account_table2))
 
-    start_point = account_table.get_corner(UP + LEFT)
-    end_point = account_table2.get_corner(UP + RIGHT)
 
-    curve_arrow = Arrow(start_point, end_point,
-                        path_arc=-50 * DEGREES, color=WHITE, stroke_width=2, max_tip_length_to_length_ratio=0.05)
+    curve_arrow = Arrow(account_table.get_top(), account_table2.get_top(),
+                        path_arc=-50 * DEGREES, color=WHITE, stroke_width=2, max_tip_length_to_length_ratio=0.03)
 
     self.play(Create(curve_arrow), run_time=1.6)
 

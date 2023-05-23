@@ -19,7 +19,7 @@ def IntroScene(self: Scene):
     self.play(FadeOut(tx3), run_time=0.1)
 
     account_image = ImageMobject("assets/explorer_account.png").scale(1)
-    self.add(account_image)
+    self.play(FadeIn(account_image))
     self.wait()
 
     rectangle = Rectangle(
