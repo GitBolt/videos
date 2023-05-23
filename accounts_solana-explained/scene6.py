@@ -99,7 +99,6 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
         image.animate.move_to(UP * 5),
         run_time=5,
     )
-
     self.wait(1)
-    self.remove(image)
+    self.remove(*[obj for obj in self.mobjects])
 

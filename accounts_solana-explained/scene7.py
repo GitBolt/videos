@@ -90,3 +90,5 @@ def AccountCreation(self: Scene):
     self.remove(space)
 
     self.wait()
+
+    self.remove(*[obj for obj in self.mobjects])
