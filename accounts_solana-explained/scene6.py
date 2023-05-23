@@ -11,18 +11,18 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
         ["data", "byecode.bin"],
     ],
 
-        "Solana Program Account",
+        "Solana Program  Account",
         [0, 0, 0],
         0.3
     )
-    program_account.shift(UP)
+    program_account.shift(UP * 1.2)
 
     owner = program_account_t.get_rows()[1]
 
     data_account, data_account_t = create_table([
         ["Field", "Data"],
-        ["owner", "Program Account"],
-        ["lamports", "10"],
+        ["owner", "Program"],
+        ["lamports", "1000000"],
         ["executable", "false"],
         ["data", "userId: 1"],
 
@@ -33,7 +33,7 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
     )
     data = data_account_t.get_rows()[4][1]
 
-    data_account.move_to(eth_acc.get_bottom() * 1.2)
+    data_account.move_to(DOWN * 2)
 
     self.wait(2)
 
@@ -98,5 +98,5 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
         run_time=5,
     )
     self.wait(1)
-    self.play(FadeOut(image))
     self.remove(*[obj for obj in self.mobjects])
+    self.play(FadeOut(image))

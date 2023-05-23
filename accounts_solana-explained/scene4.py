@@ -38,7 +38,8 @@ def TwoAccountDesc(self: Scene, account):
 
     self.play(Transform(account, VGroup(
         non_ex_account, ex_account)))
-    self.wait()
+
+    self.wait(2)
 
     rect_nex = SurroundingRectangle(
         non_ex_account_table.get_rows()[1], color=BLUE_C, buff=0.1)
@@ -73,7 +74,7 @@ def TwoAccountDesc(self: Scene, account):
     self.wait(2)
 
     program_image = ImageMobject("assets/explorer_program.png").scale(1)
-    self.play(FadeIn(program_image))
+    self.add(program_image)
     self.wait()
 
     rectangle = Rectangle(
@@ -91,6 +92,7 @@ def TwoAccountDesc(self: Scene, account):
     self.remove(
         *[mob for mob in self.mobjects],
     )
+    self.play(FadeOut(program_image), run_time=0.5)
     self.wait()
 
     self.play(Create(non_ex_account), run_time=0.8)

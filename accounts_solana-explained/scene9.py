@@ -2,6 +2,7 @@ from manim import *
 from create_table import create_table
 from make_code import make_code
 
+
 def TokenAccounts(self: Scene):
     head = Text("Everything is an Account", font_size=40)
     self.play(Write(head), run_time=2)
@@ -250,4 +251,5 @@ def TokenAccounts(self: Scene):
     ), screen_amount.animate.become(
         Text("3 USDC", font_size=50, color=BLUE).move_to([[0, -1.5, 0]])))
 
-    self.wait(5)
+    self.wait(1)
+    self.play(*[FadeOut(obj) for obj in self.mobjects])

@@ -51,8 +51,8 @@ def RentIntro(self: Scene):
 
     data = rent_t.get_rows()[2][1]
 
-    arrow = Arrow(start=DOWN, end=UP, stroke_width=8,
-                  color=PINK, max_tip_length_to_length_ratio=0.05).next_to(data, RIGHT * 3)
+    arrow = Arrow(start=DOWN, end=UP, stroke_width=7,
+                  color=PINK, max_tip_length_to_length_ratio=0.2).next_to(data, RIGHT * 3.5)
 
     self.play(Write(arrow), Write(rent_value),
               data.animate.set_color(BLUE))
@@ -101,7 +101,7 @@ def RentIntro(self: Scene):
     rent2, rent2_t = create_table_progress([
         ["Field", "Data"],
         ["lamports", "35"],
-        ["data", "..."],
+        ["data", "64 bytes"],
         ["owner", "1111..1111"],
         ["executable", "false"],
         ["rent_epoch", "1234"]
@@ -118,7 +118,7 @@ def RentIntro(self: Scene):
     initial_start = progress_bar.get_left()
 
     # self.play(Transform(rent, rent2))
-    self.play(FadeOut(rent), FadeIn(rent2))
+    self.play(FadeOut(rent), FadeIn(rent2), lamports.animate.set_color(BLUE))
 
     x = ValueTracker(progress_bar.get_right()[0])
 

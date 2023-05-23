@@ -2,24 +2,16 @@ from manim import *
 
 
 def IntroScene(self: Scene):
-    tx1 = Text("Everything in Solana")
-    tx2 = Text("Everything", font_size=60)
-    tx3 = Text("is an Account")
+    self.wait(2)
+    tx1 = Text("Everything is an Account on Solana")
 
-    self.play(Write(tx1), run_time=1.2)
-    self.play(FadeOut(tx1), run_time=0.5)
+    self.play(Write(tx1), run_time=1.4)
+    self.wait(2)
+    self.play(Uncreate(tx1), run_time=1.2)
     self.wait(0.8)
 
-    self.play(ScaleInPlace(tx2, 2), run_time=0.1)
-    self.wait()
-    self.play(FadeOut(tx2), run_time=0.1)
-
-    self.play(FadeIn(tx3))
-    self.wait()
-    self.play(FadeOut(tx3), run_time=0.1)
-
     account_image = ImageMobject("assets/explorer_account.png").scale(1)
-    self.play(FadeIn(account_image))
+    self.add(account_image)
     self.wait()
 
     rectangle = Rectangle(
@@ -47,6 +39,6 @@ def IntroScene(self: Scene):
     what.next_to(line.get_end(), RIGHT, buff=0.5)
     self.play(Write(what), run_time=0.5)
     self.wait()
-
-    self.remove(account_image, line, point, what, rectangle)
+    self.remove(line, point, what, rectangle)
+    self.play(FadeOut(account_image), run_time=0.5)
     self.wait()

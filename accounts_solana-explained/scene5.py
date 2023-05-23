@@ -104,7 +104,8 @@ def RunSOLAccountsToEth(self: MovingCamera):
                                        ],
 
                                       "Ethereum Account",
-
+                                        [0,0,0],
+                                        0.6
                                       )
 
     self.play(Restore(self.camera.frame), Create(eth_acc))
