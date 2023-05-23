@@ -45,7 +45,7 @@ def IntroScene(self: Scene):
 
     what = Text("What?")
     what.next_to(line.get_end(), RIGHT, buff=0.5)
-    self.play(Write(what), run_time=0.9)
+    self.play(Write(what), run_time=0.5)
     self.wait()
 
     self.remove(account_image, line, point, what, rectangle)

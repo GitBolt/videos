@@ -22,7 +22,7 @@ def create_table(table_data, title, move_to=[0, 0, 0], scale=0.4):
     return [table_group, table]
 
 
-def create_table_progress(table_data, title, move_to=[0, 0, 0], scale=0.4):
+def create_table_progress(table_data, title, move_to=[0, 0, 0], scale=0.4, color=PINK, label="Rent"):
     table = Table(table_data, line_config={
         "stroke_width": 1, "color": GRAY_C}, include_outer_lines=True
     )
@@ -36,14 +36,14 @@ def create_table_progress(table_data, title, move_to=[0, 0, 0], scale=0.4):
     
     box.set_stroke(width=0)
 
-    text = Text("Rent", font_size=18)
+    text = Text(label, font_size=18)
     
     text.next_to(box.get_corner(DL), DOWN)
 
     bar_end = box.get_right()
     progress_bar = Line(
         start=box.get_left(), end=[bar_end[0] - 0.5, bar_end[1], bar_end[2]],
-        color=PINK
+        color=color
     )
     
     progress_bar.next_to(text.get_right(), RIGHT)

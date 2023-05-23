@@ -21,13 +21,8 @@ class Accounts(MovingCameraScene):
         IntroScene(self)
         LearningScene(self)
         account = AccountStructureCode(self)
-        non_ex_account = TwoAccountDesc(self, account)
+        TwoAccountDesc(self, account)
 
-        self.play(Create(non_ex_account), run_time=0.8)
-        self.wait(2)
-
-        # Add Non Ex Details First
-        self.play(Uncreate(non_ex_account))
 
         eth_acc, _ = RunSOLAccountsToEth(self)
         ProgramAndDataAccount(self, eth_acc)

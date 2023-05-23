@@ -1,6 +1,8 @@
 from manim import *
 from create_table import create_table
 import random
+
+
 random_data = ["userid: 1", "count: 2", "tweet: 69",
                "content", "12/7/2006", "active: false"]
 
