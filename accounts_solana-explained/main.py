@@ -17,24 +17,21 @@ class Accounts(MovingCameraScene):
     def construct(self):
         Text.set_default(font="Cantarell", font_size=50)
 
-        IntroScene(self)
-        LearningScene(self)
-        account = AccountStructureCode(self)
-        TwoAccountDesc(self, account)
+        # IntroScene(self)
+        # LearningScene(self)
+        # account = AccountStructureCode(self)
+        # TwoAccountDesc(self, account)
 
-        eth_acc, _ = RunSOLAccountsToEth(self)
-        ProgramAndDataAccount(self, eth_acc)
-        self.wait()
+        # eth_acc, _ = RunSOLAccountsToEth(self)
+        # ProgramAndDataAccount(self, eth_acc)
 
-        AccountCreation(self)
-        RentIntro(self)
-        self.wait(2)
+        # AccountCreation(self)
+        # RentIntro(self)
+        # TokenAccounts(self)
 
-        TokenAccounts(self)
-        self.wait(2)
-
-        title = Text("Burn", font_size=60)
+        title = Text("Closing Accounts", font_size=60)
         self.play(FadeIn(title))
+        self.wait(2)
         self.play(Uncreate(title), run_time=2)
 
         self.wait(1)

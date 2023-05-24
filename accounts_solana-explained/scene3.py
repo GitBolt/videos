@@ -11,10 +11,12 @@ def AccountStructureCode(self: Scene):
          ["executable", "false"],
          ["rent_epoch", "1234"]
          ],
-        "Account"
+        "Account",
+        [0,0,0],
+        0.6
     )
 
-    self.play(Create(account), run_time=3)
+    self.play(DrawBorderThenFill(account), run_time=2)
     self.wait(1)
 
     target_position = account.get_center() + 3 * LEFT
@@ -26,6 +28,7 @@ def AccountStructureCode(self: Scene):
         file_name="codeblocks/account.rs",
         background="rectangle",
         tab_width=4,
+        line_spacing=0.8,
         font_size=20,
         corner_radius=0.1,
         background_stroke_width=0,
@@ -33,7 +36,8 @@ def AccountStructureCode(self: Scene):
         style="dracula",
     ).scale(1)
 
-    accountCode.next_to(account, RIGHT, buff=0.7)
+    accountCode.next_to(account, RIGHT, buff=0.5)
+    accountCode.move_to(DOWN)
     codeLinkAccount.move_to([0, -3, 0])
 
     self.play(Write(accountCode))
@@ -46,4 +50,5 @@ def AccountStructureCode(self: Scene):
     self.play(account.animate.move_to(
         account.get_center() + 3 * RIGHT))
     self.wait()
+    self.wait(1)
     return account

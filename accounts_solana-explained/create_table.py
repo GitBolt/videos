@@ -14,8 +14,8 @@ def create_table(table_data, title, move_to=[0, 0, 0], scale=0.4):
         table, buff=0.2, color=WHITE, fill_opacity=0.02, corner_radius=0.2)
     box.set_stroke(width=0)
 
-    title = Text(title, font_size=22, color=WHITE)
-    title.next_to(box.get_top(), UP, buff=0.3)
+    title = Text(title, font_size=25, color=WHITE)
+    title.next_to(box.get_top(), UP, buff=0.2)
 
     table_group = VGroup(table, box, title)
 
