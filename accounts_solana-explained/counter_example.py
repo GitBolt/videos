@@ -4,7 +4,7 @@ from create_table import create_table
 
 def CounterExample(self: Scene):
     title = Text("Program Account Example", font_size=60)
-    self.play(Write(title), run_time=0.8)
+    self.play(Write(title), run_time=1.5)
 
     self.wait(1.5)
 
@@ -33,7 +33,7 @@ def CounterExample(self: Scene):
 
     code.move_to(DOWN * 1.5)
     self.play(Write(code))
-    self.wait()
+    self.wait(2)
     self.play(code.animate.move_to(UP * 1), run_time=1.5)
     self.wait(2)
 

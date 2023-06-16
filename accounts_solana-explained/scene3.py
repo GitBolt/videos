@@ -64,14 +64,14 @@ def AccountStructureCode(self: Scene):
     self.play(account.animate.move_to(
         account.get_center() + 3 * RIGHT))
 
-    self.wait(2)
+    self.wait(1)
 
     rect = SurroundingRectangle(
         account_table.get_rows()[1], color=BLUE_C, buff=0.1)
 
     self.add(account_table.add(rect))
 
-    self.wait(7)
+    self.wait(10)
 
     for i in range(1, 5):
         new_rect_nex = SurroundingRectangle(
@@ -85,7 +85,7 @@ def AccountStructureCode(self: Scene):
         elif i == 3:
             self.wait(10)
         else:
-            self.wait(5)
+            self.wait(8)
 
     self.play(Uncreate(rect), Uncreate(account), Uncreate(title))
     return account

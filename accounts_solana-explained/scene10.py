@@ -184,4 +184,4 @@ def BurnIntro(self: Scene):
         *[FadeOut(obj) for obj in self.mobjects],
         Write(Text("Cleared Storage", color=GREEN, font_size=50, weight=BOLD))
     )
-    self.wait(3)
+    self.wait(1)

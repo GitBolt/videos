@@ -64,7 +64,7 @@ def TwoAccountDesc(self: Scene, account):
     ethDev.move_to(ex_account_table.get_center() + 5 * UP)
 
     self.play(ApplyMethod(ethDev.shift, 5 * RIGHT + 4.8 * DOWN))
-    self.wait(2.5)
+    self.wait(6)
 
     anchor = ImageMobject("assets/anchor.png").scale(0.8)
     anchor.move_to(RIGHT)
@@ -173,6 +173,7 @@ def TwoAccountDesc(self: Scene, account):
     what.next_to(line.get_end(), DOWN, buff=0.2)
     self.play(Write(what), run_time=0.5)
 
+    self.wait(2)
     self.play(*[FadeOut(obj) for obj in self.mobjects], run_time=0.8)
 
     progress_table, progress_table_t = create_table_progress(
@@ -222,3 +223,5 @@ def TwoAccountDesc(self: Scene, account):
     self.play(Write(status), run_time=0.6)
 
     self.play(*[FadeOut(i) for i in self.mobjects])
+
+    self.wait(3)

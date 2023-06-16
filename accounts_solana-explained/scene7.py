@@ -34,7 +34,7 @@ def AccountCreation(self: Scene):
     self.wait(1)
     self.play(code.animate.move_to(UP * 2), run_time=1.5)
 
-    self.wait(2.5)
+    self.wait(4)
     pubKeyTitle = Text("Public Key / Wallet", font_size=25, color=BLUE_C)
     pubKey = Text("Am5A...f6rWd (32 Bytes)", font_size=25)
 

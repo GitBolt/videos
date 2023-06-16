@@ -41,4 +41,4 @@ def IntroScene(self: Scene):
         Uncreate(rectangle),
         run_time=0.5,
     )
-    self.wait()
+    self.wait(3)
