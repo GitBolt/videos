@@ -8,7 +8,7 @@ def TokenAccounts(self: Scene):
     head = Text("Everything is an Account", font_size=40)
     self.play(Write(head), run_time=1.5)
     self.wait(1.5)
-    
+
     system_account, system_account_t = create_table(
         [
             ["Field", "Data"],
@@ -24,12 +24,12 @@ def TokenAccounts(self: Scene):
     )
 
     owner = system_account_t.get_rows()[3][1]
-
+    
     system_account.z_index = 2
     self.play(Uncreate(head))
 
     title = Text("Token Accounts", font_size=60)
-    self.play(Write(title), run_time=0.8)
+    self.play(Write(title), run_time=1.5)
 
     self.wait(1.5)
 
@@ -41,6 +41,13 @@ def TokenAccounts(self: Scene):
         ApplyFunction(apply_function, title),
         run_time=2,  # Total duration of the animation
     )
+
+
+    token_account_image = ImageMobject("assets/token_account.png")
+    self.play(FadeIn(token_account_image))
+
+    self.wait(7)
+    self.play(FadeOut(token_account_image))
 
     self.play(Create(system_account))
 
@@ -74,7 +81,7 @@ def TokenAccounts(self: Scene):
     token_account.add(newusdc)
 
     self.remove(system_account, usdc)
-    self.play(token_account.animate.move_to(LEFT * 3.2 + UP * 1).scale(0.9))
+    self.play(token_account.animate.move_to(LEFT * 3.5 + UP * 0.5).scale(0.9))
 
     metadata = Code(
         code="""
@@ -98,7 +105,7 @@ def TokenAccounts(self: Scene):
 
     metadata.move_to(RIGHT * 3.5 + DOWN * 1.2)
 
-    arrow = Arrow([-1.1, 1.2, 0], metadata.get_left(), path_arc=50 * DEGREES)
+    arrow = Arrow([-1.1, 0.8, 0], metadata.get_left(), path_arc=50 * DEGREES)
 
     self.play(Create(metadata), Create(arrow))
     self.wait(5)

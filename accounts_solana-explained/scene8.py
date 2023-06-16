@@ -20,12 +20,20 @@ def RentIntro(self: Scene):
     self.wait(2)
     self.play(FadeOut(map), FadeOut(source), run_time=1)
 
-    text = Text("Rent", font_size=60)
-    self.play(FadeIn(text))
+    title = Text("Rent", font_size=60)
+    self.play(Write(title), run_time=1.5)
 
-    self.wait(2)
+    self.wait(1.5)
 
-    self.play(Uncreate(text))
+    def apply_function(mob):
+        mob.become(Text("8. Rent", color=BLUE_B, font_size=25).to_corner(UL))
+        return mob
+
+    self.play(
+        ApplyFunction(apply_function, title),
+        run_time=2,  # Total duration of the animation
+    )
+
 
     rent, rent_t = create_table(
         [
@@ -167,5 +175,5 @@ def RentIntro(self: Scene):
         x.animate.set_value(rent2[1].get_left()[0] + 0.25), run_time=3, rate_func=linear
     )
 
-    self.play(Uncreate(rent2), FadeOut(dot), run_time=2)
+    self.play(Uncreate(rent2), FadeOut(dot), Uncreate(title), run_time=2)
     self.wait(2)

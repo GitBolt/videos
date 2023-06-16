@@ -58,6 +58,7 @@ def BurnIntro(self: Scene):
     sol.move_to(account.get_center())
     self.play(Create(sol), arrow.animate.set_color(GREEN))
 
+    self.wait(2)
     self.play(Uncreate(arrow), Uncreate(code), Uncreate(account), Uncreate(sol))
     self.wait(1)
     wallet = RoundedRectangle(
@@ -184,4 +185,5 @@ def BurnIntro(self: Scene):
         *[FadeOut(obj) for obj in self.mobjects],
         Write(Text("Cleared Storage", color=GREEN, font_size=50, weight=BOLD))
     )
-    self.wait(1)
+    self.play(Unwrite(title))
+    self.wait(3)
