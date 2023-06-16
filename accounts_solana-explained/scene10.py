@@ -4,12 +4,20 @@ from make_code import make_code
 
 
 def BurnIntro(self: Scene):
-    title = Text("Closing Accounts", font_size=60)
-    self.play(FadeIn(title))
-    self.wait(2)
-    self.play(Uncreate(title), run_time=2)
+    title = Text("Close Accounts", font_size=60)
+    self.play(Write(title), run_time=0.8)
 
-    self.wait(1)
+    self.wait(1.5)
+
+    def apply_function(mob):
+        mob.become(Text("9. Close Accounts", color=BLUE_B, font_size=25).to_corner(UL))
+        return mob
+
+    self.play(
+        ApplyFunction(apply_function, title),
+        run_time=2,  # Total duration of the animation
+    )
+
 
     [account, _] = create_table(
         [

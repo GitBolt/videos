@@ -2,6 +2,22 @@ from manim import *
 
 
 def AccountCreation(self: Scene):
+
+    title = Text("Creating Accounts", font_size=60)
+    self.play(Write(title), run_time=1.5)
+
+    self.wait(1.5)
+
+    def apply_function(mob):
+        mob.become(Text("5. Creating Accounts", color=BLUE_B, font_size=25).to_corner(UL))
+        return mob
+
+    self.play(
+        ApplyFunction(apply_function, title),
+        run_time=2,  # Total duration of the animation
+    )
+
+
     code = Code(
         code="Keypair.generate()",
         language="typescript",
@@ -86,7 +102,7 @@ def AccountCreation(self: Scene):
     )
 
     self.play(Write(code2), Create(curve_arrow2))
-    self.wait()
+    self.wait(2)
 
     solana = SVGMobject(file_name="assets/solana.svg", fill_color=WHITE).scale(0.3)
     solanaAmount = Text("1000", font_size=25, color=WHITE)

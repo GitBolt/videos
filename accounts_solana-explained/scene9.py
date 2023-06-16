@@ -4,9 +4,11 @@ from make_code import make_code
 
 
 def TokenAccounts(self: Scene):
+
     head = Text("Everything is an Account", font_size=40)
-    self.play(Write(head), run_time=2)
+    self.play(Write(head), run_time=1.5)
     self.wait(1.5)
+    
     system_account, system_account_t = create_table(
         [
             ["Field", "Data"],
@@ -25,6 +27,21 @@ def TokenAccounts(self: Scene):
 
     system_account.z_index = 2
     self.play(Uncreate(head))
+
+    title = Text("Token Accounts", font_size=60)
+    self.play(Write(title), run_time=0.8)
+
+    self.wait(1.5)
+
+    def apply_function(mob):
+        mob.become(Text("6. Token Accounts", color=BLUE_B, font_size=25).to_corner(UL))
+        return mob
+
+    self.play(
+        ApplyFunction(apply_function, title),
+        run_time=2,  # Total duration of the animation
+    )
+
     self.play(Create(system_account))
 
     usdc = SVGMobject("assets/usdc.svg").scale(0.5)

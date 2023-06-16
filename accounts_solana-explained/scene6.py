@@ -25,7 +25,7 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
             ["owner", "Program"],
             ["lamports", "1000000"],
             ["executable", "false"],
-            ["data", "userId: 1"],
+            ["data", "some_data: 69.420"],
         ],
         "Solana Data Account",
         [0, 0, 0],
@@ -44,14 +44,9 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
 
     self.play(
         program_account.animate.move_to(LEFT * 2).scale(1.2),
-        data_account.animate.next_to(program_account, RIGHT, buff=0.1).scale(1.2),
+        data_account.animate.next_to(
+            program_account, RIGHT, buff=0.1).scale(1.2),
         FadeOut(eth_acc),
-    )
-
-    self.play(
-        Transform(
-            data, Text("count: 1", font_size=20, color=GREEN).move_to(data.get_center())
-        )
     )
 
     self.wait()
@@ -68,30 +63,29 @@ def ProgramAndDataAccount(self: Scene, eth_acc):
 
     rect_path = SurroundingRectangle(program_account_t)
 
-    dot = Dot(color=GREEN)
-
+    circle = Circle(color=GREEN, fill_opacity=0.4, radius=0.5)
+    caption = Text("*Blink represents code executing from program", font_size=20)
+    caption.to_edge(DL)
     for i in range(1, 10):
-        dot.move_to(program_account_t.get_corner(UR))
-        self.play(GrowFromCenter(dot), run_time=0.5 if i < 2 else 0.1)
-
-        move_along_animation = MoveAlongPath(
-            dot, rect_path, run_time=0.5 if i < 2 else 0.1, rate_func=linear
-        )
-
-        self.play(move_along_animation, run_time=0.5 if i < 2 else 0.3)
-
-        self.play(
-            dot.animate.move_to(RIGHT * 1.3 + DOWN * 0.05),
-            run_time=0.3 if i < 2 else 0.08,
-        )
+        circle.move_to(program_account_t.get_corner(UR))
+        self.play(GrowFromCenter(circle), run_time=0.5 if i < 3 else 0.1)
 
         data.become(
-            Text(f"count: {i+1}", font_size=20, color=random_bright_color()).move_to(
+            Text(f"some_data: {round(i*PI, 2)}", font_size=22, color=GREEN).move_to(
                 data.get_center()
             )
         )
-        self.play(FadeOut(dot), run_time=0.5 if i < 2 else 0.1)
+        self.play(FadeOut(circle), run_time=0.5 if i < 3 else 0.1)
 
+        data.become(
+            Text(f"some_data: {round(i*PI, 2)}", font_size=20, color=WHITE).move_to(
+                data.get_center()
+            )
+        )
+
+        if (i == 2):
+            self.add(caption)
+        self.wait(1 if i < 3 else 0.2)
     self.wait(2)
 
     self.play(Uncreate(curve_arrow))

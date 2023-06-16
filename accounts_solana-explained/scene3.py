@@ -3,7 +3,22 @@ from create_table import create_table
 
 
 def AccountStructureCode(self: Scene):
-    [account, _] = create_table(
+
+    title = Text("Account Structure", font_size=60)
+    self.play(Write(title), run_time=1.5)
+
+    self.wait(1.5)
+
+    def apply_function(mob):
+        mob.become(Text("1. Account Structure", color=BLUE_B, font_size=25).to_corner(UL))
+        return mob
+
+    self.play(
+        ApplyFunction(apply_function, title),
+        run_time=2,
+    )
+
+    [account, account_table] = create_table(
         [["Field", "Data"],
          ["lamports", "69420"],
          ["data", "solami"],
@@ -12,14 +27,14 @@ def AccountStructureCode(self: Scene):
          ["rent_epoch", "1234"]
          ],
         "Account",
-        [0,0,0],
+        [0, 0, 0],
         0.6
     )
 
     self.play(DrawBorderThenFill(account), run_time=2)
     self.wait(1)
 
-    target_position = account.get_center() + 3 * LEFT
+    target_position = account.get_center() + 3.3 * LEFT
     self.play(account.animate.move_to(target_position))
     codeLinkAccount = Text(
         "https://github.com/solana-labs/solana/blob/master/sdk/src/account.rs#L29", color=BLUE_C, font_size=25)
@@ -36,12 +51,11 @@ def AccountStructureCode(self: Scene):
         style="dracula",
     ).scale(1)
 
-    accountCode.next_to(account, RIGHT, buff=0.5)
-    accountCode.move_to(DOWN)
-    codeLinkAccount.move_to([0, -3, 0])
+    accountCode.next_to(account, RIGHT * 1, buff=1)
+    codeLinkAccount.move_to([0, -3.5, 0])
 
     self.play(Write(accountCode))
-    self.add(codeLinkAccount)
+    self.play(Write(codeLinkAccount))
     self.wait(2)
 
     self.play(FadeOut(codeLinkAccount),
@@ -49,6 +63,29 @@ def AccountStructureCode(self: Scene):
 
     self.play(account.animate.move_to(
         account.get_center() + 3 * RIGHT))
-    self.wait()
-    self.wait(1)
+
+    self.wait(2)
+
+    rect = SurroundingRectangle(
+        account_table.get_rows()[1], color=BLUE_C, buff=0.1)
+
+    self.add(account_table.add(rect))
+
+    self.wait(7)
+
+    for i in range(1, 5):
+        new_rect_nex = SurroundingRectangle(
+            account_table.get_rows()[i+1], color=BLUE_C, buff=0.1)
+
+        self.play(ApplyMethod(rect.move_to, new_rect_nex),
+                  run_time=1)
+
+        if i == 1:
+            self.wait(6)
+        elif i == 3:
+            self.wait(10)
+        else:
+            self.wait(5)
+
+    self.play(Uncreate(rect), Uncreate(account), Uncreate(title))
     return account

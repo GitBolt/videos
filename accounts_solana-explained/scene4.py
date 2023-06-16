@@ -8,6 +8,21 @@ random_data = ["userid: 1", "count: 2", "tweet: 69",
 
 
 def TwoAccountDesc(self: Scene, account):
+
+    title = Text("Types of Accounts", font_size=60)
+    self.play(Write(title), run_time=1.5)
+
+    self.wait(1.5)
+
+    def apply_function(mob):
+        mob.become(Text("2. Types of Accounts", color=BLUE_B, font_size=25).to_corner(UL))
+        return mob
+
+    self.play(
+        ApplyFunction(apply_function, title),
+        run_time=2,  # Total duration of the animation
+    )
+
     [ex_account, ex_account_table] = create_table(
         [["Field", "Data"],
             ["lamports", "69420"],
@@ -21,6 +36,7 @@ def TwoAccountDesc(self: Scene, account):
         0.5
     )
     ex_account.next_to(account, LEFT, buff=-1.5)
+    data_field = ex_account_table.get_rows()[4][1]
 
     [non_ex_account, non_ex_account_table] = create_table(
         [["Field", "Data"],
@@ -40,37 +56,9 @@ def TwoAccountDesc(self: Scene, account):
         non_ex_account, ex_account)))
 
     self.wait(3)
-
-    rect_nex = SurroundingRectangle(
-        non_ex_account_table.get_rows()[1], color=BLUE_C, buff=0.1)
-    rect_ex = SurroundingRectangle(
-        ex_account_table.get_rows()[1], color=BLUE_C, buff=0.1)
-
-    self.play(Write(non_ex_account_table.add(rect_nex)),
-              Write(ex_account_table.add(rect_ex)))
-
-    self.wait(7)
-
-    for i in range(1, 5):
-        new_rect_nex = SurroundingRectangle(
-            non_ex_account_table.get_rows()[i+1], color=BLUE_C, buff=0.1)
-
-        new_rect_ex = SurroundingRectangle(
-            ex_account_table.get_rows()[i+1], color=BLUE_C, buff=0.1)
-        self.play(ApplyMethod(rect_nex.move_to, new_rect_nex),
-                  ApplyMethod(rect_ex.move_to, new_rect_ex),
-                  run_time=1)
-        if i == 3:
-            self.wait(8)
-        else:
-            self.wait(5)
-
-    self.play(Uncreate(rect_nex), Uncreate(rect_ex))
-
-    self.wait(3)
     self.play(FadeOut(account[0]), FadeOut(
         non_ex_account), FocusOn(ex_account), run_time=1)
-    self.wait(3)
+    self.wait(5)
 
     ethDev = ImageMobject("assets/eth.png").scale(0.15)
     ethDev.move_to(ex_account_table.get_center() + 5 * UP)
@@ -78,27 +66,40 @@ def TwoAccountDesc(self: Scene, account):
     self.play(ApplyMethod(ethDev.shift, 5 * RIGHT + 4.8 * DOWN))
     self.wait(2.5)
 
-    program_image = ImageMobject("assets/explorer_program.png").scale(1)
-    self.add(program_image)
-    self.remove(ethDev)
-    self.wait(1)
+    anchor = ImageMobject("assets/anchor.png").scale(0.8)
+    anchor.move_to(RIGHT)
 
-    rectangle = Rectangle(
-        height=0.5,
-        width=3,
-        stroke_color=WHITE,
-        stroke_width=6,
+    self.play(FadeOut(ethDev))
+    self.play(FadeIn(anchor))
+
+    self.wait(4)
+    code = Code(
+        file_name="codeblocks/instruction_execution.rs",
+        background="rectangle",
+        tab_width=4,
+        font_size=10,
+        corner_radius=0.1,
+        background_stroke_width=0,
+        insert_line_no=False,
+        style="dracula",
+    ).scale(1.5)
+
+    code.move_to([2, 7, 0])
+    self.add(code)
+
+    self.play(
+        ApplyMethod(code.move_to, [-2.5, 0, 0]),
+        run_time=2,
     )
-    rectangle.shift([5.3, -0.1, 0])
-    self.play(Write(rectangle))
+    self.wait(0.1)
+    self.play(Transform(code, data_field), run_time=0.9)
 
-    self.wait(2)
 
+
+    self.wait(4)
     self.remove(
         *[mob for mob in self.mobjects],
     )
-    self.play(FadeOut(program_image), run_time=0.5)
-    self.wait()
 
     self.play(FadeIn(non_ex_account), run_time=0.7)
 
@@ -124,7 +125,24 @@ def TwoAccountDesc(self: Scene, account):
     self.wait(3)
     data_field.clear_updaters()
 
+    program_image = ImageMobject("assets/explorer_program.png").scale(1)
+    self.add(program_image)
+    self.wait(1)
+
+    rectangle = Rectangle(
+        height=0.5,
+        width=3,
+        stroke_color=WHITE,
+        stroke_width=6,
+    )
+    rectangle.shift([5.3, -0.1, 0])
+    self.play(Write(rectangle))
+
+    self.wait(4)
+
+    self.play(FadeOut(program_image), FadeOut(rectangle), run_time=0.5)
     self.wait()
+
 
     img = ImageMobject("assets/system_account_output.png")
     img.next_to(non_ex_account_table, LEFT, buff=1)
@@ -137,7 +155,7 @@ def TwoAccountDesc(self: Scene, account):
         stroke_color=WHITE,
         stroke_width=5,
     )
-    rectangle.shift([-1, -0.2, 0])
+    rectangle.shift([-3.8, -0.2, 0])
     self.play(Write(rectangle))
 
     point = Dot(color=WHITE)
@@ -203,4 +221,4 @@ def TwoAccountDesc(self: Scene, account):
 
     self.play(Write(status), run_time=0.6)
 
-    self.play(Uncreate(progress_bar), Uncreate(status), Uncreate(data), *[FadeOut(i) for i in self.mobjects])
+    self.play(*[FadeOut(i) for i in self.mobjects])
